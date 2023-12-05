@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id! },
         func: updateBackgroundColor,
-        args: ['red']
+        args: [color]
       });
     });
   }
