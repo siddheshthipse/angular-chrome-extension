@@ -10,14 +10,36 @@ export class AppComponent implements OnInit {
   title: string = "Angular Chrome Extension";
 
   myForm: FormGroup | any;
+  debounceTimeoutId: any;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     console.log("Hello from the Angular Chrome Extension")
     this.myForm = this.formBuilder.group({
       inputField: ['', Validators.required]
     });
+  }
+
+  ngAfterViewInit() {
+    const promptTextarea = document.getElementById('prompt-textarea');
+
+    if (promptTextarea) {
+      promptTextarea.addEventListener('keyup', this.onKeyUp.bind(this));
+    }
+  }
+
+  onKeyUp() {
+    // Debounce logic
+    clearTimeout(this.debounceTimeoutId);
+    this.debounceTimeoutId = setTimeout(() => {
+      this.handleInput();
+    }, 300);
+  }
+
+  handleInput() {
+    // Your function logic here
+    console.log('Check the logic');
   }
 
   paintItRed(color: string): void {
