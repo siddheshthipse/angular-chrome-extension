@@ -28,15 +28,15 @@ export class AppComponent implements OnInit {
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id! },
         func: updateBackgroundColor,
-        args: ['red']
+        args: [color]
       });
     });
   }
 
   onSubmit() {
     if (this.myForm.valid) {
-      console.log(this.myForm.value);
-      const color: string = this.myForm.value;
+      console.log(this.myForm.inputField);
+      const color: string = this.myForm.inputField;
       this.paintItRed(color)
     } else {
       this.myForm.markAllAsTouched();
