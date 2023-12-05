@@ -1,1 +1,11 @@
-<button (click)="paintItRed()">Paint it Red</button>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <label for="inputField">Enter color</label>
+  <br><br>
+  <input type="text" id="inputField" formControlName="inputField">
+  <br><br>
+  <!-- <div *ngIf="myForm.get('inputField').hasError('required')">
+    This field is required
+  </div> -->
+
+  <button type="submit" [disabled]="myForm.invalid">Paint it!</button>
+</form>
