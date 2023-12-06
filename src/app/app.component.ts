@@ -17,14 +17,24 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     console.log("Hello from the Angular Chrome Extension")
 
-    setTimeout(() => {
-      console.log("After timeout")
-      const promptTextarea = document.getElementById('prompt-textarea');
-      console.log(promptTextarea);
-      if (promptTextarea) {
-        promptTextarea.addEventListener('keyup', this.onKeyUp.bind(this));
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      if (message.action === 'startListening') {
+        const promptTextarea = document.getElementById('prompt-textarea');
+
+        if (promptTextarea) {
+          promptTextarea.addEventListener('keyup', () => {
+            // Send a message to the background script whenever a key is pressed
+            chrome.runtime.sendMessage({ action: 'keyupDetected' });
+          });
+        }
       }
-    }, 2000); // Adjust the delay as needed
+    });
+
+    chrome.runtime.onMessage.addListener((message) => {
+      if (message.action === 'handleKeyUp') {
+        this.handleInput();
+      }
+    });
 
     this.myForm = this.formBuilder.group({
       inputField: ['', Validators.required]
