@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       console.log("After timeout")
       const promptTextarea = document.getElementById('prompt-textarea');
+      console.log(promptTextarea);
       if (promptTextarea) {
         promptTextarea.addEventListener('keyup', this.onKeyUp.bind(this));
       }
