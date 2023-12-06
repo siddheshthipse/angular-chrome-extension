@@ -4,6 +4,13 @@
   "description": "Build an Extension with Angular",
   "manifest_version": 3,
   "permissions": ["activeTab", "webNavigation", "storage", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_end"
+    }
+  ],
   "background": {
     "service_worker": "background.js",
     "type": "module"
