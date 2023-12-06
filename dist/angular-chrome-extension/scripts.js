@@ -1,0 +1,1 @@
+chrome.runtime.onMessage.addListener((t,n,s)=>{if("startListening"===t.action){const e=document.getElementById("prompt-textarea");e&&e.addEventListener("keyup",()=>{chrome.runtime.sendMessage({action:"keyupDetected"})})}});
