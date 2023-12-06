@@ -16,21 +16,22 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("Hello from the Angular Chrome Extension")
+
+    const promptTextarea = document.getElementById('prompt-textarea');
+    console.log("Textarea for chatgpt", promptTextarea)
+
+    if (promptTextarea) {
+      promptTextarea.addEventListener('keyup', this.onKeyUp.bind(this));
+    }
+
     this.myForm = this.formBuilder.group({
       inputField: ['', Validators.required]
     });
   }
 
-  ngAfterViewInit() {
-    const promptTextarea = document.getElementById('prompt-textarea');
-
-    if (promptTextarea) {
-      promptTextarea.addEventListener('keyup', this.onKeyUp.bind(this));
-    }
-  }
-
   onKeyUp() {
     // Debounce logic
+    console.log("On keyup event")
     clearTimeout(this.debounceTimeoutId);
     this.debounceTimeoutId = setTimeout(() => {
       this.handleInput();
